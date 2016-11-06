@@ -1,0 +1,44 @@
+extends ../admin-layout
+
+block content
+    nav.navbar.navbar-inverse.navbar-fixed-top
+        .container-fluid
+            .navbar-header
+                a.navbar-brand(href="/admin") 后台管理系统
+    br
+    .container
+        .row
+            form.form-horizontal(method="post",action="/admin/update/#{row.id}")
+                .form-group
+                    label.col-sm-2.control-label(for="inputTitle") 标题
+                    .col-sm-10
+                        input#inputTitle.form-control(type="text", name="title", value="#{row.title}")
+                .form-group
+                    label.col-sm-2.control-label(for="inputImg") 图片
+                    .col-sm-10
+                        input#inputImg.form-control(type="text", name="img",value="#{row.img}")
+                .form-group
+                    label.col-sm-2.control-label(for="inputContent") 内容
+                    .col-sm-10
+                        input#inputContent.form-control(type="text", name="content",value="#{row.content}")
+                .form-group
+                    label.col-sm-2.control-label(for="inputTime") 时间
+                    .col-sm-10
+                        input#inputTime.form-control(type="text", name="time",value="#{moment(row.time).format('YYYY-MM-DD')}")
+                .form-group
+                    label.col-sm-2.control-label(for="inputClassify") 分类
+                    .col-sm-10
+                        mixin classify-radiobox(value, text)
+                            if row.classify == value
+                                label.radio-inline
+                                    input(type='radio', name="classify", value="#{value}", checked)
+                                    span #{text}
+                            else
+                                label.radio-inline
+                                    input(type='radio', name="classify", value="#{value}")
+                                    span #{text}
+                        +classify-radiobox('tuijian', '推荐')
+                        +classify-radiobox('baijia', '百家')
+                        +classify-radiobox('bendi', '本地')
+                input.btn.btn-success(type='submit', value='提交')
+                input.btn.btn-primary(type='reset', value='重置')

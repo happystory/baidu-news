@@ -1,0 +1,12 @@
+extends ../layout
+
+block content
+    header
+        a(href='../../')
+            .back
+        .text 推荐
+        .right
+    .content
+        h2= row.title
+        .other #{moment(row.time).format('YYYY-MM-DD')}
+        .article= row.content
